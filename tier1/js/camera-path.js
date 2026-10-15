@@ -1,39 +1,42 @@
 /**
- * GT3 Exploded-View // Phase 3 Constant-Distance Camera Choreography
- * Camera distance remains locked at R ~ 6.8m around vehicle center (0, 0.65, 0).
- * Prevents accordion shrinking and keeps vehicle perfectly framed at all times.
+ * GT3 Exploded-View // Phase 3 Cylindrical Orbit Camera Choreography
+ * Smoothly interpolates (radius, azimuth, height) around the car with subtle cursor parallax.
  */
 
 class CameraPathController {
   constructor(camera) {
     this.camera = camera;
+    this.reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Fixed automotive center
-    this.fixedTarget = new THREE.Vector3(0, 0.65, 0);
-
-    // Constant-radius orbit path (R ~ 6.8 meters, FOV 40 deg)
-    this.waypoints = [
-      // 0.00: Majestic Front-Three-Quarter Hero Stance
-      { scroll: 0.00, pos: new THREE.Vector3(4.6, 1.8, 4.6), target: new THREE.Vector3(0, 0.60, 0.2) },
-
-      // 0.25: Front-Lateral Sweep (Wheels & front aero deploy)
-      { scroll: 0.25, pos: new THREE.Vector3(6.2, 2.0, 2.0), target: new THREE.Vector3(0, 0.65, 0.0) },
-
-      // 0.55: Elevated Top-Quarter View (Doors & roof floating in suspension)
-      { scroll: 0.55, pos: new THREE.Vector3(4.0, 3.4, -4.4), target: new THREE.Vector3(0, 0.70, 0.0) },
-
-      // 0.80: 360-Degree Rear Aerodynamic View (Exposed rear wing & diffuser)
-      { scroll: 0.80, pos: new THREE.Vector3(-4.4, 2.0, -4.6), target: new THREE.Vector3(0, 0.65, -0.2) },
-
-      // 1.00: Low-Angle Driver-Side Quarter Finish
-      { scroll: 1.00, pos: new THREE.Vector3(-5.2, 1.4, 3.6), target: new THREE.Vector3(0, 0.60, 0.1) }
+    // Keyframes in cylindrical coordinates:
+    // theta: azimuth angle in radians (0 = +Z front nose, +PI/2 = +X left side, PI = -Z rear wing)
+    this.keyframes = [
+      // 0.00: Dramatic Front-Quarter Close-Up
+      { scroll: 0.00, radius: 4.65, theta: 0.58, height: 1.35, targetY: 0.58, targetZ: 0.35 },
+      // 0.16: Pull back to Studio Framing as explosion begins
+      { scroll: 0.16, radius: 6.55, theta: 0.88, height: 1.85, targetY: 0.65, targetZ: 0.05 },
+      // 0.45: Elevated Side-to-Rear Sweep (Doors, wheels & canopy suspended)
+      { scroll: 0.45, radius: 6.95, theta: 2.35, height: 2.85, targetY: 0.72, targetZ: 0.00 },
+      // 0.72: Rear Aero & Wing Showcase (360 orbit past rear diffuser)
+      { scroll: 0.72, radius: 6.75, theta: 4.15, height: 2.15, targetY: 0.68, targetZ: -0.10 },
+      // 1.00: Complete 360 Orbit & Settle into Low Hero Stance
+      { scroll: 1.00, radius: 5.85, theta: 6.283 + 0.65, height: 1.55, targetY: 0.60, targetZ: 0.10 }
     ];
 
-    this.currentPos = new THREE.Vector3();
-    this.currentTarget = new THREE.Vector3();
+    this.mouseX = 0;
+    this.mouseY = 0;
+    this.smoothMouseX = 0;
+    this.smoothMouseY = 0;
+
+    if (!this.reducedMotion) {
+      window.addEventListener('mousemove', (e) => {
+        this.mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+        this.mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+      }, { passive: true });
+    }
   }
 
-  smooth(t) {
+  smoothstep(t) {
     return t * t * (3 - 2 * t);
   }
 
@@ -42,29 +45,40 @@ class CameraPathController {
 
     const p = Math.min(Math.max(scrollProgress, 0), 1);
 
-    // Locate segment
-    let w0 = this.waypoints[0];
-    let w1 = this.waypoints[this.waypoints.length - 1];
+    let k0 = this.keyframes[0];
+    let k1 = this.keyframes[this.keyframes.length - 1];
 
-    for (let i = 0; i < this.waypoints.length - 1; i++) {
-      if (p >= this.waypoints[i].scroll && p <= this.waypoints[i + 1].scroll) {
-        w0 = this.waypoints[i];
-        w1 = this.waypoints[i + 1];
+    for (let i = 0; i < this.keyframes.length - 1; i++) {
+      if (p >= this.keyframes[i].scroll && p <= this.keyframes[i + 1].scroll) {
+        k0 = this.keyframes[i];
+        k1 = this.keyframes[i + 1];
         break;
       }
     }
 
-    const span = w1.scroll - w0.scroll;
-    const t = span > 0 ? (p - w0.scroll) / span : 0;
-    const factor = this.smooth(t);
+    const span = k1.scroll - k0.scroll;
+    const rawT = span > 0 ? (p - k0.scroll) / span : 0;
+    // Blend linear + smoothstep so camera never freezes at intermediate waypoints
+    const t = 0.35 * rawT + 0.65 * this.smoothstep(rawT);
 
-    // Symmetrical position interpolation
-    this.currentPos.lerpVectors(w0.pos, w1.pos, factor);
-    this.camera.position.copy(this.currentPos);
+    const radius = k0.radius + (k1.radius - k0.radius) * t;
+    const theta = k0.theta + (k1.theta - k0.theta) * t;
+    const height = k0.height + (k1.height - k0.height) * t;
+    const targetY = k0.targetY + (k1.targetY - k0.targetY) * t;
+    const targetZ = k0.targetZ + (k1.targetZ - k0.targetZ) * t;
 
-    // Symmetrical target interpolation
-    this.currentTarget.lerpVectors(w0.target, w1.target, factor);
-    this.camera.lookAt(this.currentTarget);
+    this.smoothMouseX += (this.mouseX - this.smoothMouseX) * 0.06;
+    this.smoothMouseY += (this.mouseY - this.smoothMouseY) * 0.06;
+
+    const finalTheta = theta + this.smoothMouseX * 0.06;
+    const finalHeight = Math.max(0.4, height - this.smoothMouseY * 0.18);
+
+    this.camera.position.set(
+      Math.sin(finalTheta) * radius,
+      finalHeight,
+      Math.cos(finalTheta) * radius
+    );
+    this.camera.lookAt(0, targetY, targetZ);
   }
 }
 

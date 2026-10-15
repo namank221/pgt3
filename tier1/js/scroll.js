@@ -1,14 +1,16 @@
 /**
  * GT3 Exploded-View // Normalized Scroll Controller
- * Calculates deterministic scroll value from 0.000 to 1.000
+ * Deterministic scroll value from 0.000 to 1.000
  */
 
 class ScrollController {
   constructor() {
     this.rawProgress = 0;
     this.smoothProgress = 0;
-    this.lerpFactor = 0.08; // Smooth motion damping
+    this.reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.lerpFactor = this.reducedMotion ? 0.35 : 0.08;
     this.callbacks = [];
+    this.initialized = false;
 
     this.hudValue = document.getElementById('hud-scroll-val');
     this.fillBar = document.getElementById('scroll-fill');
@@ -34,20 +36,22 @@ class ScrollController {
       this.rawProgress = 0;
       return;
     }
-    const current = window.scrollY;
-    this.rawProgress = Math.min(Math.max(current / docHeight, 0), 1);
+    this.rawProgress = Math.min(Math.max(window.scrollY / docHeight, 0), 1);
   }
 
   update() {
-    // Lerp towards raw progress for buttery cinematic smoothness
+    const prev = this.smoothProgress;
     this.smoothProgress += (this.rawProgress - this.smoothProgress) * this.lerpFactor;
 
-    // Rounding clamp for precision
-    if (Math.abs(this.rawProgress - this.smoothProgress) < 0.0001) {
+    if (Math.abs(this.rawProgress - this.smoothProgress) < 0.00005) {
       this.smoothProgress = this.rawProgress;
     }
 
-    // Update HUD
+    if (this.initialized && Math.abs(this.smoothProgress - prev) < 0.00001) {
+      return;
+    }
+    this.initialized = true;
+
     if (this.hudValue) {
       this.hudValue.textContent = this.smoothProgress.toFixed(3);
     }
@@ -58,7 +62,6 @@ class ScrollController {
       this.scrubSlider.value = Math.round(this.smoothProgress * 1000);
     }
 
-    // Notify listeners
     for (let i = 0; i < this.callbacks.length; i++) {
       this.callbacks[i](this.smoothProgress, this.rawProgress);
     }

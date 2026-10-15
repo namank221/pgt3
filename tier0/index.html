@@ -1,10 +1,135 @@
-<!-- Redirect or launch root index.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta http-equiv="refresh" content="0; url=../index.html">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>GT3 // EXPLODED SPECIFICATION</title>
+  <link rel="stylesheet" href="tier1/css/style.css">
+  <style>
+    #loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #f5f5f7;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      transition: opacity 0.4s ease;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .loading-spinner {
+      width: 44px;
+      height: 44px;
+      border: 3px solid rgba(0, 0, 0, 0.08);
+      border-top-color: #d91b00;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-bottom: 18px;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    #loading-text {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: #6e6e73;
+      text-transform: uppercase;
+      font-family: monospace;
+    }
+  </style>
 </head>
 <body>
-  <p>Loading GT3 Spec... <a href="../index.html">Click here if not redirected</a>.</p>
+
+  <div id="loading-overlay">
+    <div class="loading-spinner"></div>
+    <div id="loading-text">INITIALIZING SCENE // 0%</div>
+  </div>
+
+  <div class="scroll-track">
+    <div class="sticky-viewport">
+      <canvas id="webgl-canvas"></canvas>
+
+      <div class="ui-layer">
+        <header class="brand-header">
+          <span class="brand-tag">NATURALLY ASPIRATED // ARCHITECTURAL STUDY</span>
+          <h1 class="brand-title">GT3 SPECIFICATION</h1>
+          <p class="brand-subtitle">Scroll to deconstruct 221 precision-modeled assemblies across a 360° studio orbit.</p>
+        </header>
+
+        <aside class="debug-hud">
+          <div class="hud-item">
+            <span class="hud-label">FPS</span>
+            <span class="hud-value active" id="hud-fps-val">--</span>
+          </div>
+          <div class="hud-item">
+            <span class="hud-label">SCROLL</span>
+            <span class="hud-value" id="hud-scroll-val">0.000</span>
+          </div>
+          <div class="hud-item">
+            <span class="hud-label">PARTS</span>
+            <span class="hud-value" id="hud-parts-val">221</span>
+          </div>
+          <div class="hud-item" style="min-width: 110px;">
+            <span class="hud-label">SCRUB / TEST</span>
+            <input type="range" id="hud-scrub-slider" min="0" max="1000" value="0" style="cursor: pointer; width: 100%; margin-top: 2px;">
+          </div>
+        </aside>
+
+        <div class="callout-stage-container">
+          <article class="callout-card is-visible" data-start="0.00" data-end="0.22">
+            <div class="callout-index">01 // AERODYNAMIC STANCE</div>
+            <h2 class="callout-heading">Track-Bred Surface Tension</h2>
+            <p class="callout-body">Vented composite front bonnet, swan-neck rear wing uprights, and sculpted underbody diffuser channels engineered for balanced high-speed downforce.</p>
+          </article>
+
+          <article class="callout-card" data-start="0.23" data-end="0.48">
+            <div class="callout-index">02 // FORGED ROLLING CHASSIS</div>
+            <h2 class="callout-heading">Center-Lock &amp; Ceramic Stopping Power</h2>
+            <p class="callout-body">Forged alloy wheels separate along the axle axis to expose the multi-piston calipers, ventilated brake rotors, and lightweight wheel-carrier hubs.</p>
+          </article>
+
+          <article class="callout-card" data-start="0.49" data-end="0.78">
+            <div class="callout-index">03 // CARBON-CAGE COCKPIT</div>
+            <h2 class="callout-heading">360° Structural Deconstruction</h2>
+            <p class="callout-body">Frameless doors, optical glazing, and carbon bucket seats elevate from the unibody core, revealing the integrated roll cage and analog-digital telemetry cluster.</p>
+          </article>
+
+          <article class="callout-card" data-start="0.79" data-end="1.00">
+            <div class="callout-index">04 // PRECISION REASSEMBLY</div>
+            <h2 class="callout-heading">Zero-Tolerance Reintegration</h2>
+            <p class="callout-body">Every body panel, seal, and mechanical sub-assembly returns deterministically to factory coordinates along a single normalized scroll timeline.</p>
+          </article>
+        </div>
+
+        <footer class="footer-hint">
+          <div class="scroll-indicator">
+            <span>SCROLL TO DECONSTRUCT</span>
+            <div class="scroll-line">
+              <div class="scroll-line-fill" id="scroll-fill"></div>
+            </div>
+          </div>
+          <div class="credit-line">
+            3D Model: "Porsche 911 GT3" by <a href="https://sketchfab.com/ChevroletSS" target="_blank" rel="noopener">ChevroletSS</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>)
+          </div>
+        </footer>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+
+  <script src="tier1/js/scroll.js"></script>
+  <script src="tier1/js/lighting.js"></script>
+  <script src="tier1/js/materials.js"></script>
+  <script src="tier1/js/explode.js"></script>
+  <script src="tier1/js/camera-path.js"></script>
+  <script src="tier1/js/ui.js"></script>
+  <script src="tier1/js/main.js"></script>
 </body>
 </html>
