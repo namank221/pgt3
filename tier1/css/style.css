@@ -1,0 +1,195 @@
+/* ============================================================
+   GT3 EXPLODED-VIEW // PHASE 1 STYLESHEET
+   ============================================================ */
+
+:root {
+  --bg-gradient: radial-gradient(circle at 50% 35%, #ffffff 0%, #ebebef 60%, #cfcfd6 100%);
+  --text-primary: #111115;
+  --text-muted: #6e6e73;
+  --accent-cyan: #0071e3;
+  --hud-bg: rgba(255, 255, 255, 0.72);
+  --hud-border: rgba(0, 0, 0, 0.08);
+  --hud-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+html, body {
+  width: 100%;
+  background: var(--bg-gradient);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text-primary);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 400vh Scroll Runway */
+.scroll-track {
+  position: relative;
+  width: 100%;
+  height: 400vh;
+}
+
+/* Sticky Viewport pinned for the entire scroll length */
+.sticky-viewport {
+  position: sticky;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+/* Three.js Canvas */
+#webgl-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none; /* Canvas is transparent to wheel/scroll events */
+}
+
+/* UI Overlay Layer */
+.ui-layer {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 28px 36px;
+  pointer-events: none;
+}
+
+/* Header Branding */
+.brand-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.brand-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.brand-title {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+/* Debug Telemetry HUD */
+.debug-hud {
+  position: absolute;
+  top: 28px;
+  right: 36px;
+  background: var(--hud-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--hud-border);
+  box-shadow: var(--hud-shadow);
+  border-radius: 12px;
+  padding: 12px 18px;
+  display: flex;
+  gap: 20px;
+  font-family: "JetBrains Mono", Consolas, monospace;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  pointer-events: auto;
+}
+
+.hud-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hud-label {
+  color: var(--text-muted);
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+.hud-value {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.hud-value.active {
+  color: var(--accent-cyan);
+}
+
+/* Footer / Instructions */
+.footer-hint {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.scroll-indicator {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.scroll-line {
+  width: 40px;
+  height: 2px;
+  background: rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.scroll-line-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: var(--text-primary);
+  transition: width 0.05s linear;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .ui-layer {
+    padding: 18px 20px;
+  }
+  .brand-title {
+    font-size: 22px;
+  }
+  .debug-hud {
+    top: auto;
+    bottom: 20px;
+    right: 20px;
+    padding: 8px 14px;
+    gap: 14px;
+  }
+  .footer-hint {
+    display: none;
+  }
+}
