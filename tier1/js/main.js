@@ -1,5 +1,9 @@
 /**
- * GT3 Exploded-View // Main Three.js Scene Engine (Phases 1-6)
+ * GT3 Exploded-View // Main Three.js Scene Engine
+ * Direct per-frame execution:
+ * - Slides car model down by 1.20m across the 400vh scroll runway
+ * - Sequential deconstruction of 220 component meshes outward
+ * - Orbits camera at locked 6.80m radius with realistic car scale
  */
 
 (function () {
@@ -43,6 +47,7 @@
 
   let carModel = null;
   let explodeEngine = null;
+  let baseCarY = 0;
   const carParts = [];
   const loader = new THREE.GLTFLoader();
 
@@ -55,13 +60,14 @@
       scene.add(carModel);
       carModel.updateMatrixWorld(true);
 
-      // Compute world bounding box and center car on (0, 0, 0) with tires grounded at Y = 0
+      // Center car geometry around origin with tires grounded at Y = 0
       const bbox = new THREE.Box3().setFromObject(carModel);
       const center = bbox.getCenter(new THREE.Vector3());
 
-      carModel.position.x -= center.x;
-      carModel.position.y -= bbox.min.y;
-      carModel.position.z -= center.z;
+      carModel.position.x = -center.x;
+      carModel.position.y = -bbox.min.y;
+      carModel.position.z = -center.z;
+      baseCarY = carModel.position.y;
       carModel.updateMatrixWorld(true);
 
       if (window.MaterialEnhancer) {
@@ -85,6 +91,7 @@
       }
 
       const initialScroll = scrollController.getProgress();
+      if (carModel) carModel.position.y = baseCarY - (initialScroll * 1.20);
       if (explodeEngine) explodeEngine.update(initialScroll);
       if (cameraController) cameraController.update(initialScroll);
       if (uiController) uiController.update(initialScroll);
@@ -115,11 +122,6 @@
     }
   );
 
-  scrollController.subscribe((smoothScroll) => {
-    if (explodeEngine) explodeEngine.update(smoothScroll);
-    if (uiController) uiController.update(smoothScroll);
-  });
-
   function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
@@ -145,8 +147,33 @@
     scrollController.update();
     const scroll = scrollController.getProgress();
 
+    // 1. CAR DOWNWARD SLIDE:
+    // Drop by 1.20m across the 400vh runway
+    if (carModel) {
+      carModel.position.y = baseCarY - (scroll * 1.20);
+    }
+
+    // 2. EXPLODED-VIEW ENGINE:
+    // Sequential deconstruction across the 4 stages
+    if (explodeEngine) {
+      explodeEngine.update(scroll);
+    }
+
+    // 3. SHADOW FLOOR:
+    if (window.studioShadowPlane && carModel) {
+      window.studioShadowPlane.position.y = carModel.position.y - 0.01;
+      window.studioShadowPlane.material.opacity = Math.max(0, 0.22 * (1 - scroll * 1.2));
+    }
+
+    // 4. CAMERA CHOREOGRAPHY:
+    // Constant radius 6.80m, realistic scale, zero foreshortening
     if (cameraController) {
       cameraController.update(scroll);
+    }
+
+    // 5. CALLOUT CARDS UI:
+    if (uiController) {
+      uiController.update(scroll);
     }
 
     renderer.render(scene, camera);

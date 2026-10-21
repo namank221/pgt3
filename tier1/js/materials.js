@@ -17,16 +17,17 @@ class MaterialEnhancer {
       child.castShadow = true;
       child.receiveShadow = true;
 
-      // 1. Exterior & Interior Body Paint (Guards Red / Lava Orange metallic clearcoat)
+      // 1. Exterior & Interior Body Paint (Porsche Deep Gloss Jet Black Metallic)
       if (matName.includes('ext_carpaint.004') || matName.includes('int_carpaint.004')) {
-        mat.color.setRGB(0.82, 0.09, 0.01);
-        mat.metalness = 0.32;
-        mat.roughness = 0.14;
+        // Deep obsidian black tone with high-clarity specular clearcoat
+        mat.color.setRGB(0.012, 0.012, 0.014);
+        mat.metalness = 0.22;
+        mat.roughness = 0.09;
         if ('clearcoat' in mat) {
           mat.clearcoat = 1.0;
-          mat.clearcoatRoughness = 0.03;
+          mat.clearcoatRoughness = 0.02;
         }
-        mat.envMapIntensity = 1.6;
+        mat.envMapIntensity = 2.4;
         mat.side = THREE.FrontSide;
         mat.needsUpdate = true;
         return;
@@ -80,10 +81,10 @@ class MaterialEnhancer {
       }
 
       if (matName.includes('brake_caliper')) {
-        mat.color.setRGB(0.85, 0.12, 0.02);
-        mat.metalness = 0.35;
-        mat.roughness = 0.20;
-        mat.envMapIntensity = 1.4;
+        mat.color.setRGB(0.96, 0.74, 0.04);
+        mat.metalness = 0.28;
+        mat.roughness = 0.18;
+        mat.envMapIntensity = 1.6;
         mat.needsUpdate = true;
         return;
       }

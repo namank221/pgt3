@@ -19,11 +19,13 @@ class UIController {
   }
 
   update(scrollProgress) {
+    const s = Math.min(Math.max(scrollProgress, 0), 1);
     for (let i = 0; i < this.cards.length; i++) {
       const card = this.cards[i];
       const start = parseFloat(card.dataset.start || '0');
       const end = parseFloat(card.dataset.end || '1');
-      if (scrollProgress >= start && scrollProgress <= end) {
+      const isCardActive = (s >= start && s <= end) || (s <= start && i === 0);
+      if (isCardActive) {
         card.classList.add('is-visible');
       } else {
         card.classList.remove('is-visible');

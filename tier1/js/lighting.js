@@ -81,6 +81,7 @@ class StudioLighting {
     shadowPlane.position.y = 0;
     shadowPlane.receiveShadow = true;
     scene.add(shadowPlane);
+    window.studioShadowPlane = shadowPlane;
   }
 }
 

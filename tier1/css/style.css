@@ -8,24 +8,31 @@
   -webkit-user-select: none;
 }
 
-html, body {
+html {
+  scroll-behavior: auto;
+}
+
+body {
   width: 100%;
+  min-height: 100vh;
   background: var(--bg-gradient);
   font-family: var(--font-sans);
   color: var(--text-primary);
-  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
+/* 500vh Track = 400vh Actual Scroll Runway (500vh - 100vh viewport) */
 .scroll-track {
   position: relative;
   width: 100%;
   height: 500vh;
 }
 
+/* Fixed Viewport Container - Viewport-sized 100vh Frame */
 .sticky-viewport {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
@@ -33,8 +40,10 @@ html, body {
   flex-direction: column;
   justify-content: space-between;
   background: var(--bg-gradient);
+  pointer-events: none;
 }
 
+/* WebGL Canvas: Native 100% of viewport */
 #webgl-canvas {
   position: absolute;
   top: 0;
@@ -153,11 +162,13 @@ html, body {
   opacity: 0;
   transform: translate3d(var(--parallax-x, 0px), calc(18px + var(--parallax-y, 0px)), 0);
   transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1), transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
 }
 
 .callout-card.is-visible {
   opacity: 1;
   transform: translate3d(var(--parallax-x, 0px), var(--parallax-y, 0px), 0);
+  pointer-events: auto;
 }
 
 .callout-index {
