@@ -1,0 +1,20 @@
+{
+  "project": "GT3 Exploded-View Interactive System",
+  "version": "1.0.0",
+  "author": "Naman",
+  "architecture": {
+    "tier0": "Metadata, launchers, and system manifests",
+    "tier1": "Presentation layer (WebGL canvas, Three.js engine, modular CSS/JS, 3D assets)"
+  },
+  "asset": {
+    "file": "gt3.glb",
+    "parts": 227,
+    "triangles": 239000,
+    "format": "glTF 2.0 Binary"
+  },
+  "pipeline": {
+    "renderer": "Three.js r128",
+    "scrollytelling": "Normalized 0.0 - 1.0 scroll stream",
+    "framerate_target": "60 FPS"
+  }
+}
