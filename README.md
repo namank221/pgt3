@@ -1,4 +1,4 @@
-# PORSCHE 911 GT3 (992) — N Edition Digital Atelier
+# PORSCHE 911 GT3 (992)
 
 An interactive 3D WebGL digital showroom, mechanical deconstruction stage, and aerodynamic telemetry experience honoring the **Porsche 911 GT3 (992)**. Engineered for both **16:9 Desktop Workstations** and **9:16 Mobile Touchscreens** (`60 FPS` WebGL).
 
@@ -22,35 +22,6 @@ An interactive 3D WebGL digital showroom, mechanical deconstruction stage, and a
    - **Asymmetric 4-Portrait Mechanical Gallery:** `1:1` Square (`01 // DOUBLE-WISHBONE FRONT AXLE`), `21:9` Wide (`02 // SWAN-NECK REAR WING`), `4:5` Tall (`03 // CARBON CERAMIC PCCB`), and `16:10` Cinema (`04 // 9,000 RPM FLAT-SIX ITB`) with magnetic cursor tracking and depth-of-field sibling blur.
    - **Aerodynamic Flow & Acoustic Resonance:** `1.8×` right-facing 911 GT3 silhouette paired with continuous SVG wind-tunnel streamlines (`EXPERIENCE THE WAVES`) and a `9,000 RPM` radial telemetry dial (`FEEL THE EXHAUST`).
    - **Supercar Atelier Footer:** 4-column architectural directory, live `ZUFFENHAUSEN // DE` UTC+1 telemetry clock, WLTP homologation bar, and an edge-to-edge `100vw` vector `P O R S C H E` floor wordmark.
-
----
-
-## Deploying to GitHub Pages (Zero-Build Static Setup)
-
-This project requires **no bundler or build step** to deploy on **GitHub Pages**, **Vercel**, or **Netlify**:
-
-1. Create a new repository on GitHub and push all files in this folder to the `main` branch:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial release: Porsche 911 GT3 (992) 3D WebGL Digital Atelier"
-   git branch -M main
-   git remote add origin https://github.com/<your-username>/<your-repo-name>.git
-   git push -u origin main
-   ```
-2. On GitHub, go to **Settings → Pages**.
-3. Under **Build and deployment**, select **Deploy from a branch**, choose **`main`** and **`/ (root)`**, and click **Save**.
-4. The included `.nojekyll` file ensures GitHub Pages serves all `.glb`, `.hdr`, `.mp4`, and `.js` assets directly at full speed.
-
-### Running Locally
-You can launch the local static server using Node.js or Python:
-```bash
-# Option A: Included zero-dependency Node server (Port 3000)
-node server.js
-
-# Option B: Python 3 HTTP server (Port 8080)
-python3 -m http.server 8080
-```
 
 ---
 
