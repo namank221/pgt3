@@ -4,7 +4,7 @@ const path = require('path');
 const { exec } = require('child_process');
 
 let currentPort = 8080;
-const MAX_PORT_ATTEMPTS = 10;
+const MAX_PORT_ATTEMPTS = 20;
 const MIME = {
   '.html': 'text/html; charset=utf-8',
   '.css': 'text/css; charset=utf-8',
@@ -12,18 +12,27 @@ const MIME = {
   '.json': 'application/json',
   '.glb': 'model/gltf-binary',
   '.gltf': 'model/gltf+json',
+  '.hdr': 'application/octet-stream',
+  '.mp4': 'video/mp4',
+  '.mp3': 'audio/mpeg',
+  '.wav': 'audio/wav',
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
   '.svg': 'image/svg+xml'
 };
 
 const server = http.createServer((req, res) => {
   let reqPath = decodeURI(req.url.split('?')[0]);
   if (reqPath === '/') reqPath = '/index.html';
-  const filePath = path.join(__dirname, reqPath);
+  let filePath = path.join(__dirname, reqPath);
   if (!path.resolve(filePath).startsWith(__dirname)) {
     res.writeHead(403, { 'Content-Type': 'text/plain' });
     return res.end('403 Forbidden');
+  }
+
+  if (!path.extname(filePath) && fs.existsSync(filePath + '.html')) {
+    filePath = filePath + '.html';
   }
 
   fs.stat(filePath, (err, stats) => {
@@ -33,10 +42,39 @@ const server = http.createServer((req, res) => {
     }
 
     const ext = path.extname(filePath).toLowerCase();
+    const contentType = MIME[ext] || 'application/octet-stream';
+    const isMediaOrAsset = ['.mp4', '.mp3', '.wav', '.glb', '.hdr', '.jpg', '.png'].includes(ext);
+    const cacheHeader = 'no-store, no-cache, must-revalidate';
+
+    const range = req.headers.range;
+    if (range && (ext === '.mp4' || ext === '.mp3' || ext === '.wav')) {
+      const parts = range.replace(/bytes=/, '').split('-');
+      const start = parseInt(parts[0], 10);
+      const end = parts[1] ? parseInt(parts[1], 10) : stats.size - 1;
+
+      if (isNaN(start) || isNaN(end) || start >= stats.size || end >= stats.size) {
+        res.writeHead(416, { 'Content-Range': `bytes */${stats.size}` });
+        return res.end();
+      }
+
+      const chunksize = (end - start) + 1;
+      res.writeHead(206, {
+        'Content-Range': `bytes ${start}-${end}/${stats.size}`,
+        'Accept-Ranges': 'bytes',
+        'Content-Length': chunksize,
+        'Content-Type': contentType,
+        'Access-Control-Allow-Origin': '*',
+        'Cache-Control': cacheHeader
+      });
+      return fs.createReadStream(filePath, { start, end }).pipe(res);
+    }
+
     res.writeHead(200, {
-      'Content-Type': MIME[ext] || 'application/octet-stream',
+      'Content-Type': contentType,
+      'Content-Length': stats.size,
+      'Accept-Ranges': 'bytes',
       'Access-Control-Allow-Origin': '*',
-      'Cache-Control': 'no-store, no-cache, must-revalidate'
+      'Cache-Control': cacheHeader
     });
 
     fs.createReadStream(filePath).pipe(res);
@@ -55,28 +93,7 @@ function onListening(port) {
 
 server.on('error', (err) => {
   if (err.code === 'EADDRINUSE') {
-    const busyPort = currentPort;
-    console.log(`[GT3 Server] Port ${busyPort} is in use.`);
-    
-    // Check if the running server is already our GT3 server
-    const req = http.get(`http://localhost:${busyPort}/tier1/js/main.js`, (probeRes) => {
-      if (probeRes.statusCode === 200) {
-        console.log(`[GT3 Server] GT3 site is ALREADY running on http://localhost:${busyPort}`);
-        console.log(`[GT3 Server] Opening browser window...`);
-        exec(`start http://localhost:${busyPort}`);
-        return;
-      }
-      tryNextPort();
-    });
-    
-    req.on('error', () => {
-      tryNextPort();
-    });
-    
-    req.setTimeout(800, () => {
-      req.destroy();
-      tryNextPort();
-    });
+    tryNextPort();
   } else {
     console.error('[GT3 Server] Server error:', err.message);
   }
@@ -85,10 +102,9 @@ server.on('error', (err) => {
 function tryNextPort() {
   currentPort++;
   if (currentPort < 8080 + MAX_PORT_ATTEMPTS) {
-    console.log(`[GT3 Server] Trying alternative port http://localhost:${currentPort}...`);
     server.listen(currentPort, () => onListening(currentPort));
   } else {
-    console.error(`[GT3 Server] Could not bind to any port between 8080 and ${currentPort}.`);
+    console.error(`[GT3 Server] Could not bind to any port.`);
   }
 }
 

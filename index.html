@@ -3,133 +3,528 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>GT3 // EXPLODED SPECIFICATION</title>
-  <link rel="stylesheet" href="tier1/css/style.css?v=400">
-  <style>
-    #loading-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: #f5f5f7;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-      transition: opacity 0.4s ease;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-    .loading-spinner {
-      width: 44px;
-      height: 44px;
-      border: 3px solid rgba(0, 0, 0, 0.08);
-      border-top-color: #d91b00;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin-bottom: 18px;
-    }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-    #loading-text {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      color: #6e6e73;
-      text-transform: uppercase;
-      font-family: monospace;
-    }
-  </style>
+  <title>PORSCHE 911 GT3</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tier1/css/style.css?v=940">
 </head>
-<body>
+<body class="is-page1-active">
 
-  <div id="loading-overlay">
-    <div class="loading-spinner"></div>
-    <div id="loading-text">INITIALIZING SCENE // 0%</div>
-  </div>
 
-  <div class="scroll-track">
-    <div class="sticky-viewport">
-      <canvas id="webgl-canvas"></canvas>
 
-      <div class="ui-layer">
-        <header class="brand-header">
-          <span class="brand-tag">NATURALLY ASPIRATED // ARCHITECTURAL STUDY</span>
-          <h1 class="brand-title">GT3 SPECIFICATION</h1>
-          <p class="brand-subtitle">Scroll to deconstruct 221 precision-modeled assemblies across a 360° studio orbit.</p>
-        </header>
+  <!-- =========================================================================
+       PAGE 1: OPENING OBSIDIAN OVERTURE (FINALIZED & LOCKED)
+       ========================================================================= -->
+  <section class="page1-overture" id="page1-overture" aria-label="Porsche 911 GT3 Opening Overture">
 
-        <aside class="debug-hud">
-          <div class="hud-item">
-            <span class="hud-label">FPS</span>
-            <span class="hud-value active" id="hud-fps-val">--</span>
-          </div>
-          <div class="hud-item">
-            <span class="hud-label">SCROLL</span>
-            <span class="hud-value" id="hud-scroll-val">0.000</span>
-          </div>
-          <div class="hud-item">
-            <span class="hud-label">PARTS</span>
-            <span class="hud-value" id="hud-parts-val">221</span>
-          </div>
-          <div class="hud-item" style="min-width: 110px;">
-            <span class="hud-label">SCRUB / TEST</span>
-            <input type="range" id="hud-scrub-slider" min="0" max="1000" value="0" style="cursor: pointer; width: 100%; margin-top: 2px;">
-          </div>
-        </aside>
+    <div class="overture-hero-header">
+      <div class="overture-utility-bar">
+        <a href="javascript:void(0)" onclick="event.preventDefault();" class="overture-icon-link" title="Locate Porsche Showroom">
+          <svg class="overture-svg-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2.75C8.27 2.75 5.25 5.77 5.25 9.5C5.25 14.62 12 21.25 12 21.25C12 21.25 18.75 14.62 18.75 9.5C18.75 5.77 15.73 2.75 12 2.75Z" />
+            <circle cx="12" cy="9.5" r="2.25" />
+          </svg>
+          <span class="overture-icon-label">SHOWROOM</span>
+        </a>
 
-        <div class="callout-stage-container">
-          <article class="callout-card is-visible" data-start="0.00" data-end="0.25">
-            <div class="callout-index">01 // FORGED ROLLING CHASSIS</div>
-            <h2 class="callout-heading">Center-Lock &amp; Ceramic Stopping Power</h2>
-            <p class="callout-body">Forged alloy wheels and Michelin Pilot Sport Cup tires separate laterally along the axle line, revealing the massive multi-piston calipers and ventilated ceramic brake rotors.</p>
-          </article>
+        <span class="overture-crown-tag">STUTTGART // ZUFFENHAUSEN</span>
 
-          <article class="callout-card" data-start="0.25" data-end="0.50">
-            <div class="callout-index">02 // AERODYNAMIC SURFACES</div>
-            <h2 class="callout-heading">Track-Bred Downforce Architecture</h2>
-            <p class="callout-body">Vented composite front bonnet, frameless doors, and the swan-neck rear wing uprights lift and translate outward, decoupling active aerodynamics from the structural core.</p>
-          </article>
+        <a href="javascript:void(0)" onclick="event.preventDefault();" class="overture-icon-link" title="Contact Bespoke Sales">
+          <span class="overture-icon-label">CONTACT SALES</span>
+          <svg class="overture-svg-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3.25" y="5.75" width="17.5" height="12.5" rx="1" />
+            <path d="M3.75 6.5L12 12.75L20.25 6.5" />
+          </svg>
+        </a>
+      </div>
 
-          <article class="callout-card" data-start="0.50" data-end="0.75">
-            <div class="callout-index">03 // STRUCTURAL SKIN &amp; GLAZING</div>
-            <h2 class="callout-heading">Composite Panels &amp; Optical Glazing</h2>
-            <p class="callout-body">Front and rear aerodynamic fascias, rear underbody diffuser channels, and lightweight canopy glass uncouple to expose the inner high-rigidity unibody cell.</p>
-          </article>
-
-          <article class="callout-card" data-start="0.75" data-end="1.00">
-            <div class="callout-index">04 // COMPLETE ARCHITECTURAL DECONSTRUCTION</div>
-            <h2 class="callout-heading">Full Kinetic Monocoque Separation</h2>
-            <p class="callout-body">Carbon bucket seats, steering column, and analog-digital telemetry cluster elevate to display all 220 precision assemblies at peak structural explosion.</p>
-          </article>
+      <div class="overture-monument-wrap" id="hero-title-stage">
+        <div class="overture-monument-card" id="hero-title-card">
+          <div class="n-optical-halo"></div>
+          <div class="n-horizontal-flare"></div>
+          <h1 class="overture-monument-title">PORSCHE 911 GT3</h1>
         </div>
-
-        <footer class="footer-hint">
-          <div class="scroll-indicator">
-            <span>SCROLL TO DECONSTRUCT</span>
-            <div class="scroll-line">
-              <div class="scroll-line-fill" id="scroll-fill"></div>
-            </div>
-          </div>
-          <div class="credit-line">
-            3D Model: "Porsche 911 GT3" by <a href="https://sketchfab.com/ChevroletSS" target="_blank" rel="noopener">ChevroletSS</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>)
-          </div>
-        </footer>
       </div>
     </div>
+
+    <div class="overture-model-sanctuary" id="page1-model-reserve">
+      <div class="sanctuary-video-stage" id="sanctuary-video-stage">
+        <div class="sanctuary-ambient-glow"></div>
+        <video
+          class="sanctuary-hero-video"
+          id="sanctuary-hero-video"
+          src="tier1/assets/gt3_hero.mp4?v=940"
+          loop
+          muted
+          playsinline
+          webkit-playsinline
+          preload="auto"
+        ></video>
+      </div>
+    </div>
+
+    <div class="overture-specs-stage" id="page1-specs-stage">
+      <div class="specs-monochrome-box is-visible" id="specs-monochrome-box">
+        <div class="specs-grid">
+          <div class="spec-cell">
+            <span class="spec-label">REDLINE</span>
+            <span class="spec-value">9,000 <small>RPM</small></span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label">0 – 100 KM/H</span>
+            <span class="spec-value">3.4 <small>S</small></span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label">MAX POWER</span>
+            <span class="spec-value">510 <small>PS</small></span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label">TOP SPEED</span>
+            <span class="spec-value">318 <small>KM/H</small></span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label">NATURALLY ASPIRATED</span>
+            <span class="spec-value">4.0 <small>L</small></span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label">NÜRBURGRING</span>
+            <span class="spec-value">6:59.9 <small>MIN</small></span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label">PEAK TORQUE</span>
+            <span class="spec-value">470 <small>NM</small></span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label">KERB WEIGHT</span>
+            <span class="spec-value">1,418 <small>KG</small></span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label">TRACK DOWNFORCE</span>
+            <span class="spec-value">+150 <small>%</small></span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label">INTAKE SYSTEM</span>
+            <span class="spec-value">6 <small>ITB</small></span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label">CERAMIC ROTORS</span>
+            <span class="spec-value">410 <small>MM</small></span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label">TRANSMISSION</span>
+            <span class="spec-value">7 <small>PDK</small></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="n-presents-stage" id="n-presents-stage">
+      <div class="n-presents-card" id="n-presents-card">
+        <div class="n-optical-halo"></div>
+        <div class="n-horizontal-flare"></div>
+        <div class="n-monogram-glyph" aria-label="N">N</div>
+        <div class="n-presents-subline">
+          <span class="n-dash"></span>
+          <span class="n-presents-text">P R E S E N T S</span>
+          <span class="n-dash"></span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- =========================================================================
+       PAGE 2: 3D PORSCHE DECONSTRUCTION & COLLAPSE STAGE (CONTINUOUS 60FPS FLOW)
+       ========================================================================= -->
+  <div class="sticky-viewport" id="studio-viewport">
+    <div class="studio-backdrop-aura" id="studio-aura"></div>
+    <div class="studio-watermark" id="studio-watermark" aria-hidden="true">
+      <span class="watermark-model">911 GT3</span>
+    </div>
+
+    <canvas id="webgl-canvas"></canvas>
   </div>
+
+  <header class="showroom-topbar" id="page2-topbar">
+    <div class="brand-wordmark">P O R S C H E</div>
+
+    <div class="showroom-controls" aria-label="Porsche Motorsport Pedigree">
+      <span class="text-trigger-btn is-static-stamp">FLACHT // WEISSACH</span>
+      <span class="rail-hairline"></span>
+      <span class="text-trigger-btn is-static-stamp">GT3 // 992</span>
+    </div>
+  </header>
+
+  <aside class="bespoke-dock" id="bespoke-dock">
+    <div class="dock-group">
+      <span class="dock-label">FINISH</span>
+      <div class="swatch-row" id="paint-swatches">
+        <button type="button" class="swatch-btn" data-paint="obsidian" title="Obsidian Metallic">
+          <span class="swatch-dot" style="background: #242830;"></span>
+        </button>
+        <button type="button" class="swatch-btn" data-paint="gtsilver" title="Liquid GT Silver">
+          <span class="swatch-dot" style="background: #cfd5de;"></span>
+        </button>
+        <button type="button" class="swatch-btn" data-paint="sharkblue" title="Satin Gunmetal">
+          <span class="swatch-dot" style="background: #58606c;"></span>
+        </button>
+        <button type="button" class="swatch-btn is-active" data-paint="guardsred" title="Chalk Monochrome">
+          <span class="swatch-dot" style="background: #e8ecf2;"></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="dock-group">
+      <span class="dock-label">WHEELS</span>
+      <div class="swatch-row" id="rim-swatches">
+        <button type="button" class="swatch-btn is-active" data-rim="titanium" title="Forged Titanium">
+          <span class="swatch-dot" style="background: #9298a2;"></span>
+        </button>
+        <button type="button" class="swatch-btn" data-rim="neodyme" title="Polished Platinum">
+          <span class="swatch-dot" style="background: #dce2ec;"></span>
+        </button>
+        <button type="button" class="swatch-btn" data-rim="obsidian" title="Satin Obsidian">
+          <span class="swatch-dot" style="background: #14161a;"></span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <footer class="footer-hint" id="page2-footer-hint">
+    <div class="scroll-indicator">
+      <div class="scroll-line">
+        <div class="scroll-line-fill" id="scroll-fill"></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Page 2: Pure Unobstructed 4-Stage 3D Scroll Choreography (All 4 Left Text Callout Boxes Removed) -->
+  <main class="story-container" id="deconstruction-stage" aria-hidden="true">
+    <section class="story-section" id="section-1" data-section="0"></section>
+    <section class="story-section" id="section-2" data-section="1"></section>
+    <section class="story-section" id="section-3" data-section="2"></section>
+    <section class="story-section" id="section-4" data-section="3"></section>
+  </main>
+
+  <!-- =========================================================================
+       PAGE 3: "BEYOND MECHANICS" + COMPACT 4-PART GALLERY +
+               ROW 1: "MASTERS OF THE AIR" CAR CONCEPT (UNTOUCHED)
+               ROW 2: ORIGINAL v=912 9,000 RPM OPTICAL RESONANCE DIAL (CLEAN SPACING)
+       ========================================================================= -->
+  <section class="page3-showcase" id="page3-beyond-mechanics" aria-label="Beyond Mechanics — Engineered Without Compromise">
+
+    <!-- 3A. Luminous "BEYOND MECHANICS" Hybrid Scroll + 8-Second Transition Stage -->
+    <div class="beyond-transition-stage" id="beyond-mechanics-stage">
+      <div class="beyond-transition-card" id="beyond-mechanics-card">
+        <div class="n-optical-halo"></div>
+        <div class="n-horizontal-flare"></div>
+        <h2 class="beyond-monument-glyph">BEYOND MECHANICS</h2>
+        <div class="n-presents-subline">
+          <span class="n-dash"></span>
+          <span class="beyond-subline-text">ENGINEERED WITHOUT COMPROMISE</span>
+          <span class="n-dash"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3B. Compact Borderless Combined 4-Part Sculpture Grid -->
+    <div class="page3-bento-container" id="page3-sculpture-gallery">
+
+      <div class="bento-row bento-row-top">
+        <!-- Sculpture 01: Twin Central Titanium Exhaust -->
+        <article class="bento-part-card" data-part-index="0" data-parallax-speed="0.88" data-enter-dir="-1">
+          <div class="bento-visual-wrap">
+            <div class="part-cursor-spotlight"></div>
+            <div class="part-scroll-flare"></div>
+            <video
+              class="bento-part-video"
+              src="tier1/assets/exhaust_loop.mp4?v=940"
+              poster="tier1/assets/exhaust_macro.jpg?v=940"
+              autoplay
+              loop
+              muted
+              playsinline
+          webkit-playsinline
+              preload="auto"
+            ></video>
+            <div class="part-minimal-hud">
+              <span class="bento-part-index">01 // TITANIUM EXHAUST</span>
+              <span class="bento-part-metric">9,000 <small>RPM</small></span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Sculpture 02: Swan-Neck Carbon Rear Wing -->
+        <article class="bento-part-card" data-part-index="1" data-parallax-speed="1.12" data-enter-dir="1">
+          <div class="bento-visual-wrap">
+            <div class="part-cursor-spotlight"></div>
+            <div class="part-scroll-flare"></div>
+            <video
+              class="bento-part-video"
+              src="tier1/assets/carbon_loop.mp4?v=940"
+              poster="tier1/assets/carbon_macro.jpg?v=940"
+              autoplay
+              loop
+              muted
+              playsinline
+          webkit-playsinline
+              preload="auto"
+            ></video>
+            <div class="part-minimal-hud">
+              <span class="bento-part-index">02 // SWAN-NECK CFRP</span>
+              <span class="bento-part-metric">+150 <small>%</small></span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="bento-row bento-row-bottom">
+        <!-- Sculpture 03: 410mm Ceramic Composite Brakes -->
+        <article class="bento-part-card" data-part-index="2" data-parallax-speed="1.10" data-enter-dir="-1">
+          <div class="bento-visual-wrap">
+            <div class="part-cursor-spotlight"></div>
+            <div class="part-scroll-flare"></div>
+            <video
+              class="bento-part-video"
+              src="tier1/assets/brakes_loop.mp4?v=940"
+              poster="tier1/assets/brakes_macro.jpg?v=940"
+              autoplay
+              loop
+              muted
+              playsinline
+          webkit-playsinline
+              preload="auto"
+            ></video>
+            <div class="part-minimal-hud">
+              <span class="bento-part-index">03 // CERAMIC ROTORS</span>
+              <span class="bento-part-metric">410 <small>MM</small></span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Sculpture 04: Alcantara & Carbon Track Cockpit -->
+        <article class="bento-part-card" data-part-index="3" data-parallax-speed="0.86" data-enter-dir="1">
+          <div class="bento-visual-wrap">
+            <div class="part-cursor-spotlight"></div>
+            <div class="part-scroll-flare"></div>
+            <video
+              class="bento-part-video"
+              src="tier1/assets/cockpit_loop.mp4?v=940"
+              poster="tier1/assets/cockpit_macro.jpg?v=940"
+              autoplay
+              loop
+              muted
+              playsinline
+          webkit-playsinline
+              preload="auto"
+            ></video>
+            <div class="part-minimal-hud">
+              <span class="bento-part-index">04 // RACE-TEX COCKPIT</span>
+              <span class="bento-part-metric">10,000 <small>RPM</small></span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+    </div>
+
+    <!-- 3C. BUGATTI-LIKE CONCEPT STAGE (v=939):
+             - Generous Architectural Breathing Room Between Rows
+             - Row 1: Right-Facing "Masters of the Air" Porsche Card (Locked) | 1/3 Scale Sky-Drop Text
+             - Row 2: 1/3 Scale Sky-Drop Text | Original First v=912 9,000 RPM Optical Resonance Instrument -->
+    <div class="bugatti-concept-stage" id="exhaust-silhouette-stage">
+
+      <!-- ROW 1: MASTERS OF THE AIR (Car In Motion -> Right-Facing Silhouette + Flowing Wind Streamlines | Sky-Drop Text) -->
+      <div class="concept-split-row concept-row-motion" id="concept-row-motion">
+
+        <!-- Left Card: Right-Facing Curvy Porsche Silhouette + "Masters of the Air" Aerodynamic Streamlines -->
+        <div class="concept-visual-card concept-card-air" id="page3-rev-btn" role="button" tabindex="0" aria-label="Masters of the Air — Click to Trigger Car In Motion Exhaust">
+          <video
+            class="concept-card-video"
+            src="tier1/assets/gt3_silhouette_loop.mp4?v=940"
+            poster="tier1/assets/gt3_silhouette.jpg?v=940"
+            autoplay
+            loop
+            muted
+            playsinline
+          webkit-playsinline
+            preload="auto"
+          ></video>
+
+          <!-- Bugatti Tourbillon "Masters of the Air" Luminous Wind-Tunnel Streamlines Flowing Over the Right-Facing Porsche -->
+          <svg class="masters-air-svg" viewBox="0 0 640 300" aria-hidden="true">
+            <path class="air-stream-line air-stream-1" d="M 18 178 C 128 176, 175 142, 265 112 C 345 86, 435 92, 535 126 C 575 138, 605 132, 628 122" />
+            <path class="air-stream-line air-stream-2" d="M 8 196 C 118 194, 182 156, 278 124 C 358 98, 442 104, 548 138 C 584 148, 612 144, 634 136" />
+            <path class="air-stream-line air-stream-3" d="M 34 218 C 148 216, 224 212, 342 212 C 446 212, 524 206, 626 196" />
+          </svg>
+
+          <div class="concept-card-whisper">
+            <span class="whisper-dot"></span>
+            <span class="whisper-label" id="motion-whisper-label">IN MOTION // 9,000 RPM</span>
+          </div>
+        </div>
+
+        <!-- Right Text Column: 1/3 Scale 2.65s Sky-Drop Text -->
+        <div class="concept-text-col">
+          <span class="concept-over-index">01 // MASTERS OF THE AIR</span>
+          <h3 class="sky-drop-title" aria-label="EXPERIENCE THE WAVES">
+            <span class="sky-word" data-group="motion" data-word-idx="0">EXPERIENCE</span>
+            <span class="sky-word" data-group="motion" data-word-idx="1">THE</span>
+            <span class="sky-word" data-group="motion" data-word-idx="2">WAVES</span>
+          </h3>
+          <div class="concept-sub-whisper">FEEL THE WAVES AT VELOCITY</div>
+        </div>
+
+      </div>
+
+      <!-- ROW 2: RESTORED FIRST v=912 9,000 RPM OPTICAL RESONANCE INSTRUMENT (Sky-Drop Text on Left | Pure Circular Optical Dial on Right) -->
+      <div class="concept-split-row concept-row-ignition" id="concept-row-ignition">
+
+        <!-- Left Text Column: 1/3 Scale 2.65s Sky-Drop Text -->
+        <div class="concept-text-col concept-text-col--left">
+          <span class="concept-over-index">02 // ATMOSPHERIC IGNITION</span>
+          <h3 class="sky-drop-title" aria-label="FEEL THE EXHAUST">
+            <span class="sky-word" data-group="ignition" data-word-idx="0">FEEL</span>
+            <span class="sky-word" data-group="ignition" data-word-idx="1">THE</span>
+            <span class="sky-word" data-group="ignition" data-word-idx="2">EXHAUST</span>
+          </h3>
+          <div class="concept-sub-whisper">AWAKEN THE STARTING PULSE</div>
+        </div>
+
+        <!-- Right Instrument: The Exact First v=912 9,000 RPM Optical Resonance Dial -->
+        <div class="redline-instrument-cell">
+          <div class="redline-instrument-wrap" id="page3-idle-btn" role="button" tabindex="0" aria-label="9,000 RPM Optical Tachometer — Click to Ignite Starting Pulse">
+            <div class="redline-ambient-halo"></div>
+            <div class="redline-anamorphic-streak"></div>
+
+            <svg class="redline-dial-svg" viewBox="0 0 420 420" aria-hidden="true">
+              <!-- Outer Whisper Reference Ring -->
+              <circle class="dial-ring-track" cx="210" cy="210" r="182" />
+              <!-- Inner Precision Tick Ring -->
+              <circle class="dial-ring-ticks" cx="210" cy="210" r="166" />
+              <!-- Scroll- & Audio-Driven Glowing Platinum Arc (270 deg sweep) -->
+              <circle class="dial-ring-progress" id="dial-ring-progress" cx="210" cy="210" r="182" />
+            </svg>
+
+            <div class="redline-core-readout">
+              <span class="redline-over-tag">3,996 CM³ // FLAT-SIX</span>
+              <div class="redline-rpm-number" id="speedo-rpm-number">9,000</div>
+              <span class="redline-rpm-unit">R E V O L U T I O N S / M I N</span>
+              <span class="redline-whisper-cue" id="ignition-whisper-label">PULSE TO IGNITE</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- 3E. REALISTIC SUPERCAR ARCHITECTURAL FOOTER (4-Column Atelier Grid + WLTP Homologation Plaque + Ghosted Floor Wordmark + Legal Bar) -->
+    <footer class="supercar-footer" id="supercar-footer" aria-label="Porsche 911 GT3 Official Showroom Footer">
+
+      <!-- Block 1: 4-Column Supercar Atelier Directory (12 Minimal Items) -->
+      <div class="footer-atelier-grid">
+        <div class="footer-col">
+          <span class="footer-col-index">01 // MODEL LINE</span>
+          <ul class="footer-col-list">
+            <li><a href="javascript:void(0)" onclick="event.preventDefault();" class="footer-link is-current">911 GT3 (992)</a></li>
+            <li><a href="javascript:void(0)" onclick="event.preventDefault();" class="footer-link">911 GT3 TOURING</a></li>
+            <li><a href="javascript:void(0)" onclick="event.preventDefault();" class="footer-link">911 GT3 RS</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <span class="footer-col-index">02 // BESPOKE ATELIER</span>
+          <ul class="footer-col-list">
+            <li><a href="javascript:void(0)" onclick="event.preventDefault();" class="footer-link">SONDERWUNSCH</a></li>
+            <li><a href="javascript:void(0)" onclick="event.preventDefault();" class="footer-link">PAINT TO SAMPLE PLUS</a></li>
+            <li><a href="javascript:void(0)" onclick="event.preventDefault();" class="footer-link">WEISSACH PACKAGE</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <span class="footer-col-index">03 // MOTORSPORT</span>
+          <ul class="footer-col-list">
+            <li><a href="javascript:void(0)" onclick="event.preventDefault();" class="footer-link">FLACHT DEVELOPMENT</a></li>
+            <li><a href="javascript:void(0)" onclick="event.preventDefault();" class="footer-link">NÜRBURGRING NORDSCHLEIFE</a></li>
+            <li><a href="javascript:void(0)" onclick="event.preventDefault();" class="footer-link">PORSCHE TRACK EXPERIENCE</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <span class="footer-col-index">04 // PRIVATE CLIENT</span>
+          <ul class="footer-col-list">
+            <li><a href="javascript:void(0)" onclick="event.preventDefault();" class="footer-link">LOCATE SHOWROOM</a></li>
+            <li><a href="javascript:void(0)" onclick="event.preventDefault();" class="footer-link">PRIVATE CONSULTATION</a></li>
+            <li><a href="#page1-overture" onclick="event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' });" class="footer-link footer-ascent-link">↑ RETURN TO OVERTURE</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Block 2: Statutory WLTP Consumption & Emissions Homologation Strip -->
+      <div class="footer-wltp-plaque">
+        <span class="wltp-tag">HOMOLOGATION // WLTP</span>
+        <p class="wltp-metrics">
+          PORSCHE 911 GT3 (992) · FUEL CONSUMPTION COMBINED: 13.0 L/100 KM · CO₂ EMISSIONS COMBINED: 294 G/KM · CO₂ CLASS: G · NATURALLY ASPIRATED 3,996 CM³ FLAT-SIX (375 KW / 510 PS @ 8,400 RPM)
+        </p>
+      </div>
+
+      <!-- Block 3: Full-Frame Edge-to-Edge Vector Showroom Floor Wordmark (100vw Wall-to-Wall) -->
+      <div class="footer-monument-floor" aria-hidden="true">
+        <svg class="footer-floor-svg" viewBox="0 0 1200 160" fill="none" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="porscheFloorGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.24" />
+              <stop offset="38%" stop-color="#ffffff" stop-opacity="0.10" />
+              <stop offset="78%" stop-color="#ffffff" stop-opacity="0.02" />
+              <stop offset="100%" stop-color="#ffffff" stop-opacity="0.00" />
+            </linearGradient>
+          </defs>
+          <text
+            x="600"
+            y="120"
+            text-anchor="middle"
+            fill="url(#porscheFloorGrad)"
+            font-family="'Syncopate', sans-serif"
+            font-weight="700"
+            font-size="118"
+            letter-spacing="0.28em"
+            textLength="1160"
+            lengthAdjust="spacingAndGlyphs"
+          >PORSCHE</text>
+        </svg>
+      </div>
+
+      <!-- Block 4: Bottom Legal, Origin Coordinates & Imprint Whisper Bar -->
+      <div class="footer-legal-bar">
+        <span class="footer-copyright">© 2026 DR. ING. H.C. F. PORSCHE AG // N EDITION</span>
+        <span class="footer-coords">ZUFFENHAUSEN · 48°50′04″N 09°09′07″E</span>
+        <div class="footer-legal-links">
+          <a href="https://sketchfab.com/3d-models/porsche-911-gt3-78d5c47ab2554c2592b7e499179a0792" target="_blank" rel="noopener noreferrer" class="footer-legal-item" title="Porsche 911 GT3 3D Mesh by ChevroletSS (CC-BY-4.0)">3D MESH: CHEVROLETSS (CC-BY-4.0)</a>
+          <a href="https://threejs.org" target="_blank" rel="noopener noreferrer" class="footer-legal-item">THREE.JS WEBGL</a>
+          <a href="javascript:void(0)" onclick="event.preventDefault();" class="footer-legal-item">IMPRINT</a>
+          <a href="javascript:void(0)" onclick="event.preventDefault();" class="footer-legal-item">PRIVACY</a>
+          <a href="javascript:void(0)" onclick="event.preventDefault();" class="footer-legal-item">LEGAL NOTICE</a>
+        </div>
+      </div>
+
+    </footer>
+
+  </section>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/RGBELoader.js"></script>
 
-  <script src="tier1/js/scroll.js"></script>
-  <script src="tier1/js/lighting.js"></script>
-  <script src="tier1/js/materials.js"></script>
-  <script src="tier1/js/explode.js"></script>
-  <script src="tier1/js/camera-path.js"></script>
-  <script src="tier1/js/ui.js"></script>
-  <script src="tier1/js/main.js"></script>
+  <script src="tier1/js/scroll.js?v=940"></script>
+  <script src="tier1/js/lighting.js?v=940"></script>
+  <script src="tier1/js/materials.js?v=940"></script>
+  <script src="tier1/js/explode.js?v=940"></script>
+  <script src="tier1/js/camera-path.js?v=940"></script>
+  <script src="tier1/js/ui.js?v=940"></script>
+  <script src="tier1/js/main.js?v=940"></script>
 </body>
 </html>

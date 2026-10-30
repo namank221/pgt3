@@ -1,0 +1,19 @@
+{
+  "name": "porsche-911-gt3-digital-atelier",
+  "version": "1.0.0",
+  "description": "Porsche 911 GT3 (992) Interactive 3D WebGL Digital Showroom & 227-Part Mechanical Deconstruction Atelier",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "porsche",
+    "911-gt3",
+    "threejs",
+    "webgl",
+    "3d-configurator",
+    "glsl-shaders",
+    "interactive-showroom"
+  ],
+  "license": "MIT AND CC-BY-4.0"
+}
